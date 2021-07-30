@@ -33,7 +33,7 @@ export default function Admin({ token, posts }) {
 const PostCard = ({ post }) => {
   const message = async (event, type) => {
     await axios
-      .post(`${baseurl}/api/admin/approve`, { ...event, type })
+      .post(`/api/admin/approve`, { ...event, type })
       .then((res) => {
         console.log(res);
         if (res.status == 200) {
