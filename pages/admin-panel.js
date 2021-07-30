@@ -34,6 +34,7 @@ const PostCard = ({ post }) => {
     await axios
       .post("/api/admin/approve", { ...event, type })
       .then((res) => {
+        console.log(res);
         if (res.status == 200) {
           handleClick();
         }

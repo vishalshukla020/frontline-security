@@ -1,4 +1,4 @@
-const fast2sms = require("fast-two-sms");
+import fast2sms from "fast-two-sms";
 import Post from "../../../models/Post";
 
 export default async function handler(req, res) {
@@ -20,6 +20,7 @@ export default async function handler(req, res) {
             .then(() => {
               return res.status(200).send("Approved successfully");
             });
+          return;
         }
         res.status(404).send("user not found");
       }
@@ -43,6 +44,7 @@ export default async function handler(req, res) {
             .then(() => {
               return res.status(200).send("Approved successfully");
             });
+          return;
         }
         res.status(404).send("user not found");
       }
