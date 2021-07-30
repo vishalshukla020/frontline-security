@@ -1,4 +1,4 @@
-import fast2sms from "fast-two-sms";
+const fast2sms = require("fast-two-sms");
 import Post from "../../../models/Post";
 
 export default async function handler(req, res) {
@@ -10,6 +10,7 @@ export default async function handler(req, res) {
         });
 
         if (user) {
+          console.log("userfound");
           await fast2sms
             .sendMessage({
               authorization: process.env.FAST2SMS,
