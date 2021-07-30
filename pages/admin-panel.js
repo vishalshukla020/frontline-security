@@ -1,7 +1,8 @@
 import { parseCookies } from "../helper/cookie";
 import axios from "axios";
-import { Button, Snackbar, Typography } from "@material-ui/core";
+import { Button, Snackbar } from "@material-ui/core";
 import { useState } from "react";
+import baseurl from "../helper/baseURL";
 
 import baseUrl from "../helper/baseURL";
 
@@ -32,7 +33,7 @@ export default function Admin({ token, posts }) {
 const PostCard = ({ post }) => {
   const message = async (event, type) => {
     await axios
-      .post("/api/admin/approve", { ...event, type })
+      .post(`${baseurl}/api/admin/approve`, { ...event, type })
       .then((res) => {
         console.log(res);
         if (res.status == 200) {
