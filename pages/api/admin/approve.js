@@ -1,10 +1,5 @@
 const fast2sms = require("fast-two-sms");
 import Post from "../../../models/Post";
-const isCI = require("is-ci");
-
-if (isCI) {
-  console.log("The code is running on a CI server");
-}
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
