@@ -2,7 +2,6 @@ import { parseCookies } from "../helper/cookie";
 import axios from "axios";
 import { Button, Snackbar } from "@material-ui/core";
 import { useState } from "react";
-import baseurl from "../helper/baseURL";
 
 import baseUrl from "../helper/baseURL";
 
