@@ -1,4 +1,4 @@
-// const fast2sms = require("fast-two-sms");
+const fast2sms = require("fast-two-sms");
 // import Post from "../../../models/Post";
 
 // export default async function handler(req, res) {
@@ -58,6 +58,13 @@
 export default async function handler(req, res) {
   if (req.method === "POST") {
     const post = req.body;
-    res.status(200).send(post);
+
+    const messageResponse = await fast2sms.sendMessage({
+      authorization: process.env.FAST2SMS,
+      message: `Your job request has been approved, refId:${referenceId}`,
+      numbers: [req.body.phone],
+    });
+
+    res.status(200).send({ post, messageResponse });
   }
 }
