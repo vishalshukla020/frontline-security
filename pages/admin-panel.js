@@ -76,6 +76,8 @@ const PostCard = ({ post }) => {
             <li>Phone no.</li>
             <li>Skill</li>
             <li>Experience</li>
+            <li>Approved</li>
+            <li>Payment req.</li>
           </ul>
           <ul>
             <li>{post.name}</li>
@@ -83,12 +85,13 @@ const PostCard = ({ post }) => {
             <li>{post.phone}</li>
             <li>{post.skill}</li>
             <li>{post.experience}</li>
+            <li>{post.approved ? "True" : "false"}</li>
+            <li>{post.payment ? "True" : "False"}</li>
           </ul>
         </div>
 
         <div className="action-btns">
           <Button
-            disabled={post.approved}
             variant="contained"
             color="primary"
             fullWidth

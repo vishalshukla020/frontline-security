@@ -21,7 +21,7 @@ export default function Footer() {
               Contact <span>us</span>
             </h2>
             <p>
-              L-11/85, Sec-H, Aliganj, Lucknow
+              2/913, SECTOR-H, JANKIPURAM, LUCKNOW
               <br /> Uttar Pradesh
               <br /> P : +91-9984-183-277
               <br /> F : 0522-4233205

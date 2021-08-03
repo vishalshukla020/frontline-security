@@ -7,7 +7,7 @@ dbConnect();
 export default async function handler(req, res) {
   if (req.method === "POST") {
     const { username, password } = req.body;
-    if (username === "admin" && password === "admin") {
+    if (username === "support@flmsservices.in" && password === "Flms1212") {
       const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY, {
         expiresIn: "60m",
       });

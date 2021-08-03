@@ -19,7 +19,7 @@ export default async function handler(req, res) {
             .sendMessage({
               authorization: process.env.FAST2SMS,
               message:
-                "Your job request has been approved, kindly follow the link to pay the fee",
+                "kindly follow the link to pay the fee 'https://imjo.in/8xHkVg' for your approved job request at 'FrontLine Security Services'. Phone no.+91-9984-183-277",
               numbers: [req.body.phone],
             })
             .then(() => {
@@ -31,10 +31,6 @@ export default async function handler(req, res) {
       }
 
       if (req.body.type == "approve") {
-        const referenceId = Math.floor(
-          100000000000 + Math.random() * 900000000000
-        );
-
         const user = await Post.findByIdAndUpdate(req.body._id, {
           approved: true,
         });
@@ -43,7 +39,7 @@ export default async function handler(req, res) {
           await fast2sms
             .sendMessage({
               authorization: process.env.FAST2SMS,
-              message: `Your job request has been approved, refId:${referenceId}`,
+              message: `Your job request has been approved at 'FrontLine Security Services'`,
               numbers: [req.body.phone],
             })
             .then(() => {
