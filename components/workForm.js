@@ -3,10 +3,17 @@ import { TextField, Select } from "formik-material-ui";
 import * as Yup from "yup";
 import { FormControl, InputLabel, MenuItem, Snackbar } from "@material-ui/core";
 import axios from "axios";
+import FileBase64 from "react-file-base64";
 import { useState } from "react";
 
 export default function WorkForm() {
   const [open, setOpen] = useState(false);
+  const [files, setFiles] = useState({
+    profile: "",
+    signature: "",
+    idProof: "",
+    qualificationProof: "",
+  });
 
   const handleClick = () => {
     setOpen(true);
@@ -37,14 +44,32 @@ export default function WorkForm() {
         initialValues={{
           formName: "work",
           name: "",
+          fatherName: "",
           phone: "",
+          alternatePhone: "",
+          email: "",
+          qualification: "",
+          city: "",
+          address: "",
           gender: "male",
           skill: "securityGuard",
           experience: "0",
         }}
         validationSchema={Yup.object({
           name: Yup.string().required("Required"),
+          fatherName: Yup.string().required("Required"),
+          city: Yup.string().required("Required"),
+          qualification: Yup.string().required("Required"),
+          address: Yup.string().required("Required"),
+
+          email: Yup.string().email("Invalid email").required("Required"),
           phone: Yup.number()
+            .typeError("That doesn't look like a phone number")
+            .positive("A phone number can't start with a minus")
+            .integer("A phone number can't include a decimal point")
+            .min(1000000000, "Enter a 10 digit phone number")
+            .required("A phone number is required"),
+          alternatePhone: Yup.number()
             .typeError("That doesn't look like a phone number")
             .positive("A phone number can't start with a minus")
             .integer("A phone number can't include a decimal point")
@@ -56,8 +81,9 @@ export default function WorkForm() {
         })}
         onSubmit={(values, actions) => {
           axios
-            .post("/api/job/post", { ...values })
+            .post("/api/job/post", { ...values, ...files })
             .then((res) => {
+              console.log(res);
               if (res.status == 200) {
                 handleClick();
               }
@@ -66,9 +92,15 @@ export default function WorkForm() {
               console.log(err.message);
             });
           actions.resetForm();
+          setFiles({
+            profile: "",
+            signature: "",
+            idProof: "",
+            qualificationProof: "",
+          });
         }}
       >
-        {() => (
+        {(formik) => (
           <Form className="form">
             <h2 className="h2">Work with us</h2>
             <span className="underline"></span>
@@ -85,9 +117,105 @@ export default function WorkForm() {
               <Field
                 fullWidth
                 component={TextField}
+                name="fatherName"
+                label="Father's name / पिता का नाम "
+                variant="outlined"
+              />
+            </div>
+            <div className="form-group">
+              <Field
+                fullWidth
+                component={TextField}
                 name="phone"
                 label="Phone number / फ़ोन नंबर"
                 variant="outlined"
+              />
+            </div>
+            <div className="form-group">
+              <Field
+                fullWidth
+                component={TextField}
+                name="alternatePhone"
+                label="Alternate Phone number / अन्य  फ़ोन नंबर"
+                variant="outlined"
+              />
+            </div>
+            <div className="form-group">
+              <Field
+                fullWidth
+                component={TextField}
+                name="email"
+                label="E-mail / ई-मेल "
+                variant="outlined"
+              />
+            </div>
+            <div className="form-group">
+              <Field
+                fullWidth
+                component={TextField}
+                name="qualification"
+                label="Qualification / योग्यता "
+                variant="outlined"
+              />
+            </div>
+            <div className="form-group">
+              <Field
+                fullWidth
+                component={TextField}
+                name="city"
+                label="City / शहर"
+                variant="outlined"
+              />
+            </div>
+            <div className="form-group">
+              <Field
+                fullWidth
+                component={TextField}
+                name="address"
+                label="Address / पता"
+                variant="outlined"
+                multiline
+                rows={4}
+              />
+            </div>
+            <div className="form-group filebase">
+              <label className="label">Profile Photo: </label>
+              <FileBase64
+                required
+                name="profile"
+                onDone={(base64) => {
+                  setFiles({ ...files, profile: base64 });
+                }}
+              />
+            </div>
+            <div className="form-group filebase">
+              <label className="label">Your Signature: </label>
+              <FileBase64
+                required
+                name="signature"
+                onDone={(base64) => {
+                  setFiles({ ...files, signature: base64 });
+                }}
+              />
+            </div>
+            <div className="form-group filebase">
+              <label className="label">ID & Address proof: </label>
+              <FileBase64
+                required
+                name="idProof"
+                onDone={(base64) => {
+                  setFiles({ ...files, idProof: base64 });
+                }}
+              />
+            </div>
+            <div className="form-group filebase">
+              <label className="label">Your Qualification: </label>
+              <FileBase64
+                required
+                name="qualificationProof"
+                onDone={(base64) => {
+                  setFiles({ ...files, qualificationProof: base64 });
+                }}
               />
             </div>
             <div className="form-group">
